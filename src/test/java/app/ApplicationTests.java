@@ -7,10 +7,10 @@ import java.io.File;
 
 import org.junit.jupiter.api.Test;
 
-class ApplicationTest {
+class ApplicationTests {
 
 	@Test
-	void ApplicationTest() {
+	void testApplication() {
 		String[] paramTbl = {"UPDATE test SET nom = B where nom = C","excel.csv"};
 		Application.main(paramTbl);
 		assertTrue(new File("script.sql").exists());
