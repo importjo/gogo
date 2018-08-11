@@ -1,10 +1,10 @@
-package spreadSheetReader;
+package spreadSheet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import spreadSheetReader.SpreadSheetReader;
+import spreadSheet.SpreadSheetReader;
 
 class SpreadSheetReaderTests {
 
@@ -12,8 +12,8 @@ class SpreadSheetReaderTests {
 	void testExcelReader() {
 		SpreadSheetReader spreadSheetReader = new SpreadSheetReader();
 		spreadSheetReader.readCSVFile("excel.csv");
-		spreadSheetReader.convertDataToSQL("UPDATE test SET nom = B where nom = C");
-		assertTrue(spreadSheetReader.getSQLText().equals("UPDATE test SET nom = 'excelData' where nom = 'oldName'"));
+		assertTrue(spreadSheetReader.getRow(0).equals("1,Test,value,debug,1234"));
+		assertTrue(spreadSheetReader.getRow(1).equals("2,tesT,debug,value,4321"));
 	}
 
 }
