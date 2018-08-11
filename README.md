@@ -11,5 +11,5 @@ Components:
 
     * main commandline
     * sql reader
-    * excel reader
+    * spreadsheet reader
     * script builder
