@@ -23,7 +23,9 @@ public class ColumnFinder {
 	}
 
 	private void filterStringForColumnParam() {
-		Collections.list(new StringTokenizer(this.sqlToFilter)).stream().map(token -> (String) token)
+		Collections.list(new StringTokenizer(this.sqlToFilter))
+				.stream()
+				.map(token -> (String) token)
 				.filter(token -> token.matches(String.format("%s[a-zA-Z0-9]", PARAM_DELIMITER)))
 				.forEach(token -> addPosition(token.charAt(LAST_INDEX_OF_PARAM)));
 	}
