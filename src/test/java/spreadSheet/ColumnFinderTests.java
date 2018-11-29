@@ -1,72 +1,72 @@
 package spreadSheet;
 
-import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.*;
 
 class ColumnFinderTests {
 
 	@Test
-	void lettersShouldReturnPositions() {
+	public void lettersShouldReturnPositions() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("UPDATE test SET nom = --B where nom = --C");
-		assertEquals(new ArrayList<Integer>(Arrays.asList(2, 3)), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>(Arrays.asList(2, 3)));
 	}
-	
+
 	@Test
-	void lettersShouldReturnPositionsInverse() {
+	public void lettersShouldReturnPositionsInverse() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("UPDATE test SET nom = --C where nom = --B");
-		assertEquals(new ArrayList<Integer>(Arrays.asList(3, 2)), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>(Arrays.asList(3, 2)));
 	}
-	
+
 	@Test
-	void oneLetterShouldReturnOnePosition() {
+	public void oneLetterShouldReturnOnePosition() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("UPDATE test SET nom = --B where nom = 12345");
-		assertEquals(new ArrayList<Integer>(Arrays.asList(2)), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>(Arrays.asList(2)));
 	}
-	
+
 	@Test
-	void lowerCaseShouldReturnPosition() {
+	public void lowerCaseShouldReturnPosition() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("UPDATE test SET nom = --b where nom = 12345");
-		assertEquals(new ArrayList<Integer>(Arrays.asList(2)), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>(Arrays.asList(2)));
 	}
-	
+
 	@Test
-	void noLetterShouldReturnEmpty() {
+	public void noLetterShouldReturnEmpty() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("UPDATE test SET nom = jo where nom = 12345");
-		assertEquals(new ArrayList<Integer>(), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>());
 	}
-	
+
 	@Test
-	void noSpaceInSqlShouldReturnEmpty() {
+	public void noSpaceInSqlShouldReturnEmpty() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("UPDATEtestSETnom=jowherenom=12345");
-		assertEquals(new ArrayList<Integer>(), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>());
 	}
-	
+
 	@Test
-	void noSqlShouldReturnEmpty() {
+	public void noSqlShouldReturnEmpty() {
 		ColumnFinder columnFinder = new ColumnFinder();
-		assertEquals(new ArrayList<Integer>(), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>());
 	}
-	
+
 	@Test
-	void paramWithSpecialCharacterShouldReturnEmpty() {
+	public void paramWithSpecialCharacterShouldReturnEmpty() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("--$ --! --& --*");
-		assertEquals(new ArrayList<Integer>(), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>());
 	}
-	
+
 	@Test
-	void paramWithNumbersShouldReturnPositions() {
+	public void paramWithNumbersShouldReturnPositions() {
 		ColumnFinder columnFinder = new ColumnFinder();
 		columnFinder.findColumnIndex("UPDATE test SET nom = --9 where nom = --6 --1");
-		assertEquals(new ArrayList<Integer>(Arrays.asList(9, 6, 1)), columnFinder.getAllColumnsPositions());
+		assertThat(columnFinder.getAllColumnsPositions()).isEqualTo(new ArrayList<Integer>(Arrays.asList(9, 6, 1)));
 	}
 
 }
